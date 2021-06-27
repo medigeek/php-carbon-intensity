@@ -29,7 +29,7 @@ declare(strict_types=1);
 namespace Medigeek\CarbonIntensity;
 
 use GuzzleHttp\Client;
-use Medigeek\CarbonIntensity\CarbonIntensityResponseObject;
+use Medigeek\CarbonIntensity\CarbonIntensityDataAllObject;
 use Exception;
 
 /**
@@ -59,7 +59,7 @@ class CarbonIntensity
             
             
             $response = $this->client->get(
-                'intensity',
+                'intensity/date/',
                 [
                     'headers' => [
                         //'User-Agent' => 'testing/1.0',
@@ -74,21 +74,14 @@ class CarbonIntensity
             exit();
         }
         
-        $responseObject = new CarbonIntensityResponseObject($response);
-        var_dump($responseObject);
-        exit("dumped\n");
-        
-        $contentsJSONArray = json_decode($contentsTextString, true);
-        //echo $contentsObject; echo "\n";
-        //var_dump($contentsObject);
-        //var_dump($contents);
-        //$jsonString = json_encode($contentsTextString);
+        $responseObject = new CarbonIntensityDataAllObject($response);
+        //var_dump($responseObject);
         $code = $response->getStatusCode();
         $reasonPhrase = $response->getReasonPhrase();
         printf("code %s reasonPhrase: %s\n body->contents: %s\n",
             $code,
             $reasonPhrase,
-            $contentsTextString
+            $responseObject->get('dataRaw')
             );
     }
 }
