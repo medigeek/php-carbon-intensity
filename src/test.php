@@ -6,5 +6,5 @@ use Medigeek\CarbonIntensity;
 
 $CI = new CarbonIntensity\CarbonIntensity();
 
-$CI->test();
+$CI->getIntensity();
 

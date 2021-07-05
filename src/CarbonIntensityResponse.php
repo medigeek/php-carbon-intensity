@@ -26,24 +26,53 @@
 
 namespace Medigeek\CarbonIntensity;
 use GuzzleHttp\Psr7\Response;
+use Medigeek\CarbonIntensity\CarbonIntensityDataObject;
 
 /**
  * Description of CarbonIntensityDataAllObject
  *
  * @author Savvas Radevic
  */
-class CarbonIntensityDataAllObject
+class CarbonIntensityResponse
 {
-    private string $dataRaw;
-    private array $data;
+    private string $dataRaw = "";
+    private array $data = [];
+    private int $statusCode;
+    private string $statusMessage;
     
     public function __construct(Response $carbonIntensityResponse) {
         //var_dump($carbonIntensityResponse);
         $this->dataRaw = $carbonIntensityResponse->getBody()->getContents();
         $JSONArray = json_decode($this->dataRaw, true);
-        $this->data = $JSONArray["data"];
+        $this->statusCode = $carbonIntensityResponse->getStatusCode();
+        $this->getReasonPhrase = $carbonIntensityResponse->getReasonPhrase();
+        //$this->data = $JSONArray["data"];
+        /*
+        {
+          "data":
+          [
+            {
+            "from": "2021-07-04T23:00Z",
+            "to": "2021-07-04T23:30Z",
+            "intensity": {
+              "forecast": 133,
+              "actual": 136,
+              "index": "low"
+            }
+          },
+          ...
+          ]
+         */
+        foreach ($JSONArray["data"] as $value) {
+            array_push($this->data, $this->prepareDataObject($value));
+        }
         //var_dump($this->data);
         //var_dump($JSONArray);
+    }
+    
+    private function prepareDataObject($value): CarbonIntensityDataObject {
+        $obj = new CarbonIntensityDataObject($value);
+        return $obj;
     }
     
     public function get(string $key, string $returntype = "array")

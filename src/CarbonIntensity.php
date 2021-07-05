@@ -29,7 +29,7 @@ declare(strict_types=1);
 namespace Medigeek\CarbonIntensity;
 
 use GuzzleHttp\Client;
-use Medigeek\CarbonIntensity\CarbonIntensityDataAllObject;
+use Medigeek\CarbonIntensity\CarbonIntensityResponse;
 use Exception;
 
 /**
@@ -52,14 +52,18 @@ class CarbonIntensity
             ]);
     }
     
-    public function test()
+    public function getIntensityDate()
     {
-        
+        $obj = $this->callApiEndpoint('intensity/date/');
+        var_dump($obj);
+        exit("DEBUG DONE getIntensity");
+    }
+    
+    private function callApiEndpoint(string $endpoint): CarbonIntensityResponse {
         try {
-            
-            
             $response = $this->client->get(
-                'intensity/date/',
+                //'intensity/',
+                $endpoint,
                 [
                     'headers' => [
                         //'User-Agent' => 'testing/1.0',
@@ -69,19 +73,25 @@ class CarbonIntensity
                 ]
             );
         } catch (Exception $e) {
-            printf("exception %s: %s\n", $e->getCode(), $e->getMessage());
-            
-            exit();
+            exit(sprintf("exception %s: %s\n", $e->getCode(), $e->getMessage()));
         }
         
-        $responseObject = new CarbonIntensityDataAllObject($response);
+        $responseObject = new CarbonIntensityResponse($response);
         //var_dump($responseObject);
-        $code = $response->getStatusCode();
-        $reasonPhrase = $response->getReasonPhrase();
-        printf("code %s reasonPhrase: %s\n body->contents: %s\n",
+        //$code = $response->getStatusCode();
+        //$reasonPhrase = $response->getReasonPhrase();
+        /*printf("code %s reasonPhrase: %s\n body->contents: %s\n",
             $code,
             $reasonPhrase,
             $responseObject->get('dataRaw')
             );
+        */
+        return $responseObject;
+    }
+    
+    public function getIntensity() {
+        $obj = $this->callApiEndpoint('intensity/');
+        var_dump($obj);
+        exit("DEBUG DONE getIntensity");
     }
 }

@@ -31,25 +31,42 @@ namespace Medigeek\CarbonIntensity;
  *
  * @author Savvas Radevic
  */
-class CarbonIntensityDataSingleObject
+class CarbonIntensityDataObject
 {
     private string $from;
     private string $to;
     private array  $intensity;
-    private string $forecast;
-    private string $actual;
+    private int $forecast;
+    private int $actual;
     private string $index;
+    private array  $dataArray;
     
-    public function __construct(Response $carbonIntensityResponse) {
+    /*
+        {
+      "data":
+      [
+        {
+        "from": "2021-07-04T23:00Z",
+        "to": "2021-07-04T23:30Z",
+        "intensity": {
+          "forecast": 133,
+          "actual": 136,
+          "index": "low"
+        }
+      },
+      ...
+      ]
+     */
+    
+    
+    public function __construct(array $dataArray) {
         //var_dump($carbonIntensityResponse);
-        $this->dataRaw = $carbonIntensityResponse->getBody()->getContents();
-        $JSONArray = json_decode($this->dataRaw, true);
-        $this->data = $JSONArray["data"];
+        $this->dataArray = $dataArray;
         //var_dump($this->data);
         //var_dump($JSONArray);
-        $this->from = $this->data[0]["from"];
-        $this->to = $this->data[0]["to"];
-        $this->intensity = $this->data[0]["intensity"];
+        $this->from = $this->dataArray["from"];
+        $this->to = $this->dataArray["to"];
+        $this->intensity = $this->dataArray["intensity"];
         $this->forecast = $this->intensity["forecast"];
         $this->actual = $this->intensity["actual"];
         $this->index = $this->intensity["index"];
