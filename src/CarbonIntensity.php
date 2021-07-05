@@ -91,7 +91,7 @@ class CarbonIntensity
     
     public function getIntensity() {
         $obj = $this->callApiEndpoint('intensity/');
-        var_dump($obj);
+        var_dump($obj->get('data')[0]);
         exit("DEBUG DONE getIntensity");
     }
 }

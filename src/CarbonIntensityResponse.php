@@ -45,7 +45,7 @@ class CarbonIntensityResponse
         $this->dataRaw = $carbonIntensityResponse->getBody()->getContents();
         $JSONArray = json_decode($this->dataRaw, true);
         $this->statusCode = $carbonIntensityResponse->getStatusCode();
-        $this->getReasonPhrase = $carbonIntensityResponse->getReasonPhrase();
+        $this->statusMessage = $carbonIntensityResponse->getReasonPhrase();
         //$this->data = $JSONArray["data"];
         /*
         {
