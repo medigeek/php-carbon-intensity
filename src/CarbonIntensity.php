@@ -52,9 +52,13 @@ class CarbonIntensity
             ]);
     }
     
-    public function getIntensityDate()
+    public function getIntensityDate(string $date = '', string $period = '')
     {
-        $obj = $this->callApiEndpoint('intensity/date/');
+        //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity-date
+        //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity-date-date
+        //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity-date-date-period
+        $endpointString = sprintf('intensity/date/%s/%s', $date, $period);
+        $obj = $this->callApiEndpoint($endpointString);
         var_dump($obj);
         exit("DEBUG DONE getIntensity");
     }
@@ -90,7 +94,7 @@ class CarbonIntensity
     }
     
     public function getIntensity() {
-        $obj = $this->callApiEndpoint('intensity/');
+        $obj = $this->callApiEndpoint('intensity');
         var_dump($obj->get('data')[0]);
         exit("DEBUG DONE getIntensity");
     }

@@ -27,7 +27,7 @@
 namespace Medigeek\CarbonIntensity;
 
 /**
- * Description of CarbonIntensityResponse
+ * Description of CarbonIntensityDataObject
  *
  * @author Savvas Radevic
  */
@@ -37,7 +37,7 @@ class CarbonIntensityDataObject
     private string $to;
     private array  $intensity;
     private int $forecast;
-    private int $actual;
+    private $actual;
     private string $index;
     private array  $dataArray;
     

@@ -29,7 +29,7 @@ use GuzzleHttp\Psr7\Response;
 use Medigeek\CarbonIntensity\CarbonIntensityDataObject;
 
 /**
- * Description of CarbonIntensityDataAllObject
+ * Description of CarbonIntensityResponse
  *
  * @author Savvas Radevic
  */
@@ -44,6 +44,25 @@ class CarbonIntensityResponse
         //var_dump($carbonIntensityResponse);
         $this->dataRaw = $carbonIntensityResponse->getBody()->getContents();
         $JSONArray = json_decode($this->dataRaw, true);
+        //var_dump($JSONArray);
+        if (array_key_exists("error", $JSONArray)) {
+            /*
+                {
+                "error": {
+                  "code": "400 Bad Request",
+                  "message": "Please enter a valid date in ISO8601 format 
+                             YYYY-MM-DD and period 1-48 e.g. /intensity/date/2017-08-25/42"
+                  }
+                }
+             */
+            
+            exit(
+                sprintf(
+                    "error %s: %s\n", 
+                    $JSONArray["error"]["code"],
+                    $JSONArray["error"]["message"])
+            );
+        }
         $this->statusCode = $carbonIntensityResponse->getStatusCode();
         $this->statusMessage = $carbonIntensityResponse->getReasonPhrase();
         //$this->data = $JSONArray["data"];
