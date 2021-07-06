@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * The MIT License
  *
- * Copyright 2020 Savvas Radevic.
+ * Copyright 2020-2021 Savvas Radevic <sradevic@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
