@@ -39,10 +39,7 @@ class CarbonIntensityDataObject
     private string $to;
     private array  $intensity;
     private int $forecast;
-    /**
-     * @var int|null $actual
-     */
-    private $actual;
+    private ?int $actual; //nullable type hinting
     private string $index;
     private array  $dataArray;
     
