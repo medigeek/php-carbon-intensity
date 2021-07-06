@@ -59,8 +59,9 @@ class CarbonIntensity
         //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity-date-date-period
         $endpointString = sprintf('intensity/date/%s/%s', $date, $period);
         $obj = $this->callApiEndpoint($endpointString);
-        var_dump($obj);
-        exit("DEBUG DONE getIntensity");
+        //var_dump($obj);
+        return $obj->get('data');
+        //exit("DEBUG DONE getIntensityDate");
     }
     
     private function callApiEndpoint(string $endpoint): CarbonIntensityResponse {
@@ -93,9 +94,10 @@ class CarbonIntensity
         return $responseObject;
     }
     
-    public function getIntensity() {
+    public function getIntensity(): CarbonIntensityDataObject {
         $obj = $this->callApiEndpoint('intensity');
-        var_dump($obj->get('data')[0]);
-        exit("DEBUG DONE getIntensity");
+        //var_dump($obj->get('data')[0]);
+        //exit("DEBUG DONE getIntensity");
+        return $obj->get('data')[0];
     }
 }

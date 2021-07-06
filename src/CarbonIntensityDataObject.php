@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * The MIT License
  *
@@ -37,6 +39,9 @@ class CarbonIntensityDataObject
     private string $to;
     private array  $intensity;
     private int $forecast;
+    /**
+     * @var int|null $actual
+     */
     private $actual;
     private string $index;
     private array  $dataArray;
