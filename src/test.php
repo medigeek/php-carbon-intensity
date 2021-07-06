@@ -9,5 +9,5 @@ $CI = new CarbonIntensity\CarbonIntensity();
 //$CI->getIntensity();
 //$CI->getIntensityDate();
 //$CI->getIntensityDate('2021-07-05');
-$CI->getIntensityDate('2021-07-05', '1');
-$CI->getIntensityDate('2021-07-05', '4');
+$CI->getIntensityDate('2021-07-04', '1');
+$CI->getIntensityDate('2021-07-04', '4');
