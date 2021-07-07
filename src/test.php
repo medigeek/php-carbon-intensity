@@ -6,14 +6,7 @@ use Medigeek\CarbonIntensity;
 
 $CI = new CarbonIntensity\CarbonIntensity();
 
-/*
-$intensityTest1 = $CI->getIntensity();
-var_dump($intensityTest1);
-var_dump($intensityTest1->get('from'));
-var_dump($intensityTest1->get('intensity'));
-var_dump($intensityTest1->get('actual'));
-var_dump($intensityTest1->get('index'));
-*/
+
 
 /*
 $intensityDateNoArgs = $CI->getIntensityDate();
@@ -63,5 +56,69 @@ foreach ($intensityFactors1 as $val) {
     var_dump($val->get('Solar'));
     var_dump($val->get('dataArray'));
     var_dump($val->getAll());
+}
+*/
+
+/*
+$intensityTest1 = $CI->getIntensity();
+var_dump($intensityTest1);
+var_dump($intensityTest1->get('from'));
+var_dump($intensityTest1->get('intensity'));
+var_dump($intensityTest1->get('actual'));
+var_dump($intensityTest1->get('index'));
+*/
+
+/*
+$intensityTest2 = $CI->getIntensityFromTo('2021-07-07T16:31Z');
+foreach ($intensityTest2 as $val) {
+    var_dump($val);
+    var_dump($val->get('from'));
+    var_dump($val->get('actual'));
+    var_dump($val->get('index'));
+    var_dump($val->get('intensity'));
+}
+*/
+
+/*
+$intensityTest3 = $CI->getIntensityFromTo('2021-07-07T08:01Z', '2021-07-07T09:00Z');
+foreach ($intensityTest3 as $val) {
+    //var_dump($val);
+    var_dump($val->get('from'));
+    var_dump($val->get('actual'));
+    var_dump($val->get('index'));
+    var_dump($val->get('intensity'));
+}
+*/
+
+/*
+$intensityFW24h = $CI->getIntensityFW24h('2021-07-06T08:01Z');
+foreach ($intensityFW24h as $val) {
+    //var_dump($val);
+    var_dump($val->get('from'));
+    var_dump($val->get('actual'));
+    var_dump($val->get('index'));
+    var_dump($val->get('intensity'));
+}
+*/
+
+/*
+$intensityFW48h = $CI->getIntensityFW48h('2021-07-04T08:01Z');
+foreach ($intensityFW48h as $val) {
+    //var_dump($val);
+    var_dump($val->get('from'));
+    var_dump($val->get('actual'));
+    var_dump($val->get('index'));
+    var_dump($val->get('intensity'));
+}
+*/
+
+/*
+$intensityPT24h = $CI->getIntensityPT24h('2021-07-07T08:01Z');
+foreach ($intensityPT24h as $val) {
+    //var_dump($val);
+    var_dump($val->get('from'));
+    var_dump($val->get('actual'));
+    var_dump($val->get('index'));
+    var_dump($val->get('intensity'));
 }
 */

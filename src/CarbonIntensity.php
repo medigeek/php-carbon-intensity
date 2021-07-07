@@ -62,7 +62,7 @@ class CarbonIntensity
         //exit("DEBUG DONE getIntensityDate");
     }
     
-    public function getIntensityDate(string $date = '', string $period = '')
+    public function getIntensityDate(string $date = '', string $period = ''): array
     {
         //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity-date
         //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity-date-date
@@ -102,9 +102,49 @@ class CarbonIntensity
     }
     
     public function getIntensity(): CarbonIntensityDataObject {
-        $obj = $this->callApiEndpoint('intensity');
+        //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity
+        $endpointString = 'intensity';
+        $obj = $this->callApiEndpoint($endpointString);
         //var_dump($obj->get('data')[0]);
         //exit("DEBUG DONE getIntensity");
         return $obj->get('data')[0];
+    }
+    
+    public function getIntensityFromTo(
+        string $from = '', 
+        string $to = ''
+    ): array {
+        //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity-from
+        //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity-from-to
+        $endpointString = sprintf('intensity/%s/%s', $from, $to);
+        $obj = $this->callApiEndpoint($endpointString);
+        return $obj->get('data');
+    }
+    
+    public function getIntensityFW24h(
+        string $from
+    ): array {
+        //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity-from-fw24h
+        $endpointString = sprintf('intensity/%s/fw24h', $from);
+        $obj = $this->callApiEndpoint($endpointString);
+        return $obj->get('data');
+    }
+    
+    public function getIntensityFW48h(
+        string $from
+    ): array {
+        //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity-from-fw48h
+        $endpointString = sprintf('intensity/%s/fw48h', $from);
+        $obj = $this->callApiEndpoint($endpointString);
+        return $obj->get('data');
+    }
+    
+    public function getIntensityPT24h(
+        string $from
+    ): array {
+        //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity-from-pt24h
+        $endpointString = sprintf('intensity/%s/pt24h', $from);
+        $obj = $this->callApiEndpoint($endpointString);
+        return $obj->get('data');
     }
 }
