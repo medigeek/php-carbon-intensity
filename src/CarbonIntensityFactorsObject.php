@@ -27,88 +27,75 @@ declare(strict_types=1);
  */
 
 namespace Medigeek\CarbonIntensity;
-use GuzzleHttp\Psr7\Response;
-use Medigeek\CarbonIntensity\CarbonIntensityDataObject;
 
 /**
- * Description of CarbonIntensityResponse
+ * Description of CarbonIntensityFactorsObject
  *
  * @author Savvas Radevic
  */
-class CarbonIntensityResponse
+class CarbonIntensityFactorsObject
 {
-    private string $dataRaw = "";
-    private array $data = [];
-    private int $statusCode;
-    private string $statusMessage;
+    private array $dataArray;
+    private int $Biomass;
+    private int $Coal;
+    private int $DutchImports;
+    private int $FrenchImports;
+    private int $GasCombinedCycle;
+    private int $GasOpenCycle;
+    private int $Hydro;
+    private int $IrishImports;
+    private int $Nuclear;
+    private int $Oil;
+    private int $Other;
+    private int $PumpedStorage;
+    private int $Solar;
+    private int $Wind;
     
-    public function __construct(
-        Response $carbonIntensityResponse, 
-        string $objectType = 'CarbonIntensityDataObject'
-    ) {
-        //var_dump($carbonIntensityResponse);
-        $this->dataRaw = $carbonIntensityResponse->getBody()->getContents();
-        $JSONArray = json_decode($this->dataRaw, true);
-        //var_dump($JSONArray);
-        if (array_key_exists("error", $JSONArray)) {
-            /*
-                {
-                "error": {
-                  "code": "400 Bad Request",
-                  "message": "Please enter a valid date in ISO8601 format 
-                             YYYY-MM-DD and period 1-48 e.g. /intensity/date/2017-08-25/42"
-                  }
-                }
-             */
-            
-            exit(
-                sprintf(
-                    "error %s: %s\n", 
-                    $JSONArray["error"]["code"],
-                    $JSONArray["error"]["message"])
-            );
-        }
-        $this->statusCode = $carbonIntensityResponse->getStatusCode();
-        $this->statusMessage = $carbonIntensityResponse->getReasonPhrase();
-        //$this->data = $JSONArray["data"];
-        /*
+    /*
+      {
+        "data":[
         {
-          "data":
-          [
-            {
-            "from": "2021-07-04T23:00Z",
-            "to": "2021-07-04T23:30Z",
-            "intensity": {
-              "forecast": 133,
-              "actual": 136,
-              "index": "low"
-            }
-          },
-          ...
-          ]
-         */
-        foreach ($JSONArray["data"] as $value) {
-            if ($objectType == 'CarbonIntensityFactorsObject') {
-                array_push($this->data, $this->prepareFactorsObject($value));
-            }
-            else {
-                array_push($this->data, $this->prepareDataObject($value));
-            }
-        }
+          "Biomass": 120,
+          "Coal": 937,
+          "Dutch Imports": 474,
+          "French Imports": 53,
+          "Gas (Combined Cycle)": 394,
+          "Gas (Open Cycle)": 651,
+          "Hydro": 0,
+          "Irish Imports": 458,
+          "Nuclear": 0,
+          "Oil": 935,
+          "Other": 300,
+          "Pumped Storage": 0,
+          "Solar": 0,
+          "Wind": 0
+        }]
+      }
+     */
+    
+    
+    public function __construct(array $dataArray) {
+        //var_dump($carbonIntensityResponse);
+        //var_dump($dataArray);
+        $this->dataArray = $dataArray;
         //var_dump($this->data);
         //var_dump($JSONArray);
+        $this->Biomass = $this->dataArray["Biomass"];
+        $this->Coal = $this->dataArray["Coal"];
+        $this->DutchImports = $this->dataArray["Dutch Imports"];
+        $this->FrenchImports = $this->dataArray["French Imports"];
+        $this->GasCombinedCycle = $this->dataArray["Gas (Combined Cycle)"];
+        $this->GasOpenCycle = $this->dataArray["Gas (Open Cycle)"];
+        $this->Hydro = $this->dataArray["Hydro"];
+        $this->IrishImports = $this->dataArray["Irish Imports"];
+        $this->Nuclear = $this->dataArray["Nuclear"];
+        $this->Oil = $this->dataArray["Oil"];
+        $this->Other = $this->dataArray["Other"];
+        $this->PumpedStorage = $this->dataArray["Pumped Storage"];
+        $this->Solar = $this->dataArray["Solar"];
+        $this->Wind = $this->dataArray["Wind"];
     }
-    
-    private function prepareDataObject($value): CarbonIntensityDataObject {
-        $obj = new CarbonIntensityDataObject($value);
-        return $obj;
-    }
-    
-    private function prepareFactorsObject($value): CarbonIntensityFactorsObject {
-        $obj = new CarbonIntensityFactorsObject($value);
-        return $obj;
-    }
-    
+
     public function get(string $key, string $returntype = "array")
     {
 
@@ -121,7 +108,7 @@ class CarbonIntensityResponse
             return $jsonArray;
         }
     }
-    
+
     public function set(string $key, $value)
     {
         $this->$key = $value;

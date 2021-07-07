@@ -54,3 +54,14 @@ foreach ($intensityDatePeriod4 as $val) {
     var_dump($val->get('index'));
 }
 */
+
+/*
+$intensityFactors1 = $CI->getIntensityFactors();
+foreach ($intensityFactors1 as $val) {
+    var_dump($val->get('Biomass'));
+    var_dump($val->get('Coal'));
+    var_dump($val->get('Solar'));
+    var_dump($val->get('dataArray'));
+    var_dump($val->getAll());
+}
+*/

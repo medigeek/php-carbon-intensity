@@ -52,6 +52,16 @@ class CarbonIntensity
             ]);
     }
     
+    public function getIntensityFactors()
+    {
+        //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity-factors
+        $endpointString = 'intensity/factors';
+        $obj = $this->callApiEndpoint($endpointString, 'CarbonIntensityFactorsObject');
+        //var_dump($obj);
+        return $obj->get('data');
+        //exit("DEBUG DONE getIntensityDate");
+    }
+    
     public function getIntensityDate(string $date = '', string $period = '')
     {
         //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity-date
@@ -64,7 +74,10 @@ class CarbonIntensity
         //exit("DEBUG DONE getIntensityDate");
     }
     
-    private function callApiEndpoint(string $endpoint): CarbonIntensityResponse {
+    private function callApiEndpoint(
+        string $endpoint, 
+        string $objectType = 'CarbonIntensityDataObject'
+    ): CarbonIntensityResponse {
         try {
             $response = $this->client->get(
                 //'intensity/',
@@ -81,16 +94,10 @@ class CarbonIntensity
             exit(sprintf("exception %s: %s\n", $e->getCode(), $e->getMessage()));
         }
         
-        $responseObject = new CarbonIntensityResponse($response);
+        $responseObject = new CarbonIntensityResponse($response, $objectType);
         //var_dump($responseObject);
         //$code = $response->getStatusCode();
         //$reasonPhrase = $response->getReasonPhrase();
-        /*printf("code %s reasonPhrase: %s\n body->contents: %s\n",
-            $code,
-            $reasonPhrase,
-            $responseObject->get('dataRaw')
-            );
-        */
         return $responseObject;
     }
     
