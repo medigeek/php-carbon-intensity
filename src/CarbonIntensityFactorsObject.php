@@ -33,23 +33,23 @@ namespace Medigeek\CarbonIntensity;
  *
  * @author Savvas Radevic
  */
-class CarbonIntensityFactorsObject
+class CarbonIntensityFactorsObject extends CarbonIntensityDataObject
 {
-    private array $dataArray;
-    private int $Biomass;
-    private int $Coal;
-    private int $DutchImports;
-    private int $FrenchImports;
-    private int $GasCombinedCycle;
-    private int $GasOpenCycle;
-    private int $Hydro;
-    private int $IrishImports;
-    private int $Nuclear;
-    private int $Oil;
-    private int $Other;
-    private int $PumpedStorage;
-    private int $Solar;
-    private int $Wind;
+    //protected array $dataArray;
+    protected int $Biomass;
+    protected int $Coal;
+    protected int $DutchImports;
+    protected int $FrenchImports;
+    protected int $GasCombinedCycle;
+    protected int $GasOpenCycle;
+    protected int $Hydro;
+    protected int $IrishImports;
+    protected int $Nuclear;
+    protected int $Oil;
+    protected int $Other;
+    protected int $PumpedStorage;
+    protected int $Solar;
+    protected int $Wind;
     
     /*
       {
@@ -80,6 +80,10 @@ class CarbonIntensityFactorsObject
         $this->dataArray = $dataArray;
         //var_dump($this->data);
         //var_dump($JSONArray);
+        unset($this->intensity);
+        unset($this->forecast);
+        unset($this->actual);
+        unset($this->index);
         $this->Biomass = $this->dataArray["Biomass"];
         $this->Coal = $this->dataArray["Coal"];
         $this->DutchImports = $this->dataArray["Dutch Imports"];
@@ -96,57 +100,4 @@ class CarbonIntensityFactorsObject
         $this->Wind = $this->dataArray["Wind"];
     }
 
-    public function get(string $key, string $returntype = "array")
-    {
-
-        $tmpString = $this->$key;
-
-        if ($returntype == "array") {
-            return $tmpString;
-        } elseif ($returntype == "json") {
-            $jsonArray = json_encode($tmpString);
-            return $jsonArray;
-        }
-    }
-
-    public function set(string $key, $value)
-    {
-        $this->$key = $value;
-        return true;
-    }
-
-    public function getMultiple(array $keys, string $returntype = "array")
-    {
-        $tmpArray = [];
-        foreach ($keys as $key) {
-            $tmpArray["$key"] = $this->$key;
-        }
-
-        if ($returntype == "array") {
-            return $tmpArray;
-        } elseif ($returntype == "json") {
-            $jsonArray = json_encode($tmpArray);
-            return $jsonArray;
-        }
-    }
-
-    public function setMultiple(array $keyValuePairs)
-    {
-        foreach ($keyValuePairs as $key => $value) {
-            $this->$key = $this->$value;
-        }
-    }
-
-    public function getAll(string $returntype = "array")
-    {
-        $keyValuePairs = get_object_vars($this);
-        ksort($keyValuePairs);
-
-        if ($returntype == "array") {
-            return $keyValuePairs;
-        } elseif ($returntype == "json") {
-            $KeyValuePairsJSON = json_encode($keyValuePairs);
-            return $KeyValuePairsJSON;
-        }
-    }
 }

@@ -147,4 +147,17 @@ class CarbonIntensity
         $obj = $this->callApiEndpoint($endpointString);
         return $obj->get('data');
     }
+    
+    
+    public function getIntensityStats(
+        string $from,
+        string $to,
+        string $block = ''
+    ): array {
+        //https://carbon-intensity.github.io/api-definitions/#get-intensity-stats-from-to
+        //https://carbon-intensity.github.io/api-definitions/#get-intensity-stats-from-to-block
+        $endpointString = sprintf('intensity/stats/%s/%s/%s', $from, $to, $block);
+        $obj = $this->callApiEndpoint($endpointString, 'CarbonIntensityStatsObject');
+        return $obj->get('data');
+    }
 }

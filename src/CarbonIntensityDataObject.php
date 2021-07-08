@@ -35,13 +35,13 @@ namespace Medigeek\CarbonIntensity;
  */
 class CarbonIntensityDataObject
 {
-    private string $from;
-    private string $to;
-    private array  $intensity;
-    private int $forecast;
-    private ?int $actual; //nullable type hinting
-    private string $index;
-    private array  $dataArray;
+    //private string $from;
+    protected string $to;
+    protected array  $intensity;
+    protected int $forecast;
+    protected ?int $actual; //nullable type hinting
+    protected string $index;
+    protected array  $dataArray;
     
     /*
         {
@@ -76,7 +76,6 @@ class CarbonIntensityDataObject
 
     public function get(string $key, string $returntype = "array")
     {
-
         $tmpString = $this->$key;
 
         if ($returntype == "array") {

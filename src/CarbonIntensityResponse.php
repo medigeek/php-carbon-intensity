@@ -29,6 +29,7 @@ declare(strict_types=1);
 namespace Medigeek\CarbonIntensity;
 use GuzzleHttp\Psr7\Response;
 use Medigeek\CarbonIntensity\CarbonIntensityDataObject;
+use Medigeek\CarbonIntensity\CarbonIntensityStatsObject;
 
 /**
  * Description of CarbonIntensityResponse
@@ -71,25 +72,12 @@ class CarbonIntensityResponse
         $this->statusCode = $carbonIntensityResponse->getStatusCode();
         $this->statusMessage = $carbonIntensityResponse->getReasonPhrase();
         //$this->data = $JSONArray["data"];
-        /*
-        {
-          "data":
-          [
-            {
-            "from": "2021-07-04T23:00Z",
-            "to": "2021-07-04T23:30Z",
-            "intensity": {
-              "forecast": 133,
-              "actual": 136,
-              "index": "low"
-            }
-          },
-          ...
-          ]
-         */
         foreach ($JSONArray["data"] as $value) {
             if ($objectType == 'CarbonIntensityFactorsObject') {
                 array_push($this->data, $this->prepareFactorsObject($value));
+            }
+            elseif ($objectType == 'CarbonIntensityStatsObject') {
+                array_push($this->data, $this->prepareStatsObject($value));
             }
             else {
                 array_push($this->data, $this->prepareDataObject($value));
@@ -101,6 +89,11 @@ class CarbonIntensityResponse
     
     private function prepareDataObject($value): CarbonIntensityDataObject {
         $obj = new CarbonIntensityDataObject($value);
+        return $obj;
+    }
+    
+    private function prepareStatsObject($value): CarbonIntensityStatsObject {
+        $obj = new CarbonIntensityStatsObject($value);
         return $obj;
     }
     

@@ -122,3 +122,26 @@ foreach ($intensityPT24h as $val) {
     var_dump($val->get('intensity'));
 }
 */
+
+/*
+$intensityStats1 = $CI->getIntensityStats('2021-07-07T08:01Z', '2021-07-07T12:00Z');
+foreach ($intensityStats1 as $val) {
+    //var_dump($val);
+    var_dump($val->get('from'));
+    var_dump($val->get('min'));
+    var_dump($val->get('max'));
+    var_dump($val->get('average'));
+    var_dump($val->get('intensity'));
+}
+
+$intensityStats2 = $CI->getIntensityStats('2021-07-07T08:01Z', '2021-07-07T12:00Z', '2');
+foreach ($intensityStats2 as $val) {
+    //var_dump($val);
+    var_dump($val->get('from'));
+    var_dump($val->get('min'));
+    var_dump($val->get('max'));
+    var_dump($val->get('average'));
+    var_dump($val->get('intensity'));
+}
+
+*/
