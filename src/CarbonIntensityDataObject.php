@@ -35,7 +35,7 @@ namespace Medigeek\CarbonIntensity;
  */
 class CarbonIntensityDataObject
 {
-    //private string $from;
+    protected string $from;
     protected string $to;
     protected array  $intensity;
     protected int $forecast;
