@@ -44,11 +44,7 @@ class CarbonIntensityGenerationMixObject extends CarbonIntensityDataObject
     protected float $other;
     protected float $wind;
     protected float $solar;
-    //protected string $from;
-    //protected string $to;
     protected array  $generationmix;
-    //protected string $index;
-    //protected array  $dataArray;
     
     /*
         {
@@ -100,10 +96,7 @@ class CarbonIntensityGenerationMixObject extends CarbonIntensityDataObject
     
     
     public function __construct(array $dataArray) {
-        //var_dump($carbonIntensityResponse);
-        //parent::__construct($dataArray);
         $this->dataArray = $dataArray;
-        //var_dump($this->dataArray);
         unset($this->intensity);
         unset($this->forecast);
         unset($this->actual);

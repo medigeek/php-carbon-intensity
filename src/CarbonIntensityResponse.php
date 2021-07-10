@@ -73,7 +73,6 @@ class CarbonIntensityResponse
         }
         $this->statusCode = $carbonIntensityResponse->getStatusCode();
         $this->statusMessage = $carbonIntensityResponse->getReasonPhrase();
-        //$this->data = $JSONArray["data"];
         
         //call prepareCarbonIntensityDataObject
         //or prepareCarbonIntensityStatsObject
@@ -88,23 +87,8 @@ class CarbonIntensityResponse
             foreach ($JSONArray["data"] as $value) {
                 //call $functionName as method
                 array_push($this->data, $this->$methodName($value));
-                /*
-                if ($objectType == 'CarbonIntensityFactorsObject') {
-                    array_push($this->data, $this->prepareFactorsObject($value));
-                }
-                elseif ($objectType == 'CarbonIntensityStatsObject') {
-                    array_push($this->data, $this->prepareStatsObject($value));
-                }
-                elseif ($objectType == 'CarbonIntensityGenerationMixObject') {
-                    array_push($this->data, $this->prepareGenerationMixObject($value));
-                }
-                else {
-                    array_push($this->data, $this->prepareDataObject($value));
-                }*/
             }
         }
-        //var_dump($this->data);
-        //var_dump($JSONArray);
     }
     
     private function prepareCarbonIntensityDataObject($value): CarbonIntensityDataObject {

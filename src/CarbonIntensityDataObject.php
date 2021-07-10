@@ -62,10 +62,7 @@ class CarbonIntensityDataObject
     
     
     public function __construct(array $dataArray) {
-        //var_dump($carbonIntensityResponse);
         $this->dataArray = $dataArray;
-        //var_dump($this->data);
-        //var_dump($JSONArray);
         $this->from = $this->dataArray["from"];
         $this->to = $this->dataArray["to"];
         $this->intensity = $this->dataArray["intensity"];
