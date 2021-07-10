@@ -29,7 +29,7 @@ declare(strict_types=1);
 namespace Medigeek\CarbonIntensity;
 
 /**
- * Description of CarbonIntensityDataObject
+ * Description of CarbonIntensityStatsObject
  *
  * @author Savvas Radevic
  */
@@ -66,6 +66,8 @@ class CarbonIntensityStatsObject extends CarbonIntensityDataObject
         //parent::__construct($dataArray);
         $this->dataArray = $dataArray;
         //var_dump($this->dataArray);
+        unset($this->forecast);
+        unset($this->actual);
         $this->from = $this->dataArray["from"];
         $this->to = $this->dataArray["to"];
         $this->intensity = $this->dataArray["intensity"];

@@ -30,6 +30,7 @@ namespace Medigeek\CarbonIntensity;
 use GuzzleHttp\Psr7\Response;
 use Medigeek\CarbonIntensity\CarbonIntensityDataObject;
 use Medigeek\CarbonIntensity\CarbonIntensityStatsObject;
+use Medigeek\CarbonIntensity\CarbonIntensityGenerationMixObject;
 
 /**
  * Description of CarbonIntensityResponse
@@ -45,7 +46,8 @@ class CarbonIntensityResponse
     
     public function __construct(
         Response $carbonIntensityResponse, 
-        string $objectType = 'CarbonIntensityDataObject'
+        string $objectType = 'CarbonIntensityDataObject',
+        bool $dataIsArray = true
     ) {
         //var_dump($carbonIntensityResponse);
         $this->dataRaw = $carbonIntensityResponse->getBody()->getContents();
@@ -72,32 +74,55 @@ class CarbonIntensityResponse
         $this->statusCode = $carbonIntensityResponse->getStatusCode();
         $this->statusMessage = $carbonIntensityResponse->getReasonPhrase();
         //$this->data = $JSONArray["data"];
-        foreach ($JSONArray["data"] as $value) {
-            if ($objectType == 'CarbonIntensityFactorsObject') {
-                array_push($this->data, $this->prepareFactorsObject($value));
-            }
-            elseif ($objectType == 'CarbonIntensityStatsObject') {
-                array_push($this->data, $this->prepareStatsObject($value));
-            }
-            else {
-                array_push($this->data, $this->prepareDataObject($value));
+        
+        //call prepareCarbonIntensityDataObject
+        //or prepareCarbonIntensityStatsObject
+        //or prepareCarbonIntensityGenerationMixObject
+        //or prepareCarbonIntensityFactorsObject
+        $methodName = 'prepare'.$objectType;
+        
+        if ($dataIsArray == false) {
+            // /generation endpoint returns a single item, not an array
+            array_push($this->data, $this->$methodName($JSONArray["data"]));
+        } else {
+            foreach ($JSONArray["data"] as $value) {
+                //call $functionName as method
+                array_push($this->data, $this->$methodName($value));
+                /*
+                if ($objectType == 'CarbonIntensityFactorsObject') {
+                    array_push($this->data, $this->prepareFactorsObject($value));
+                }
+                elseif ($objectType == 'CarbonIntensityStatsObject') {
+                    array_push($this->data, $this->prepareStatsObject($value));
+                }
+                elseif ($objectType == 'CarbonIntensityGenerationMixObject') {
+                    array_push($this->data, $this->prepareGenerationMixObject($value));
+                }
+                else {
+                    array_push($this->data, $this->prepareDataObject($value));
+                }*/
             }
         }
         //var_dump($this->data);
         //var_dump($JSONArray);
     }
     
-    private function prepareDataObject($value): CarbonIntensityDataObject {
+    private function prepareCarbonIntensityDataObject($value): CarbonIntensityDataObject {
         $obj = new CarbonIntensityDataObject($value);
         return $obj;
     }
     
-    private function prepareStatsObject($value): CarbonIntensityStatsObject {
+    private function prepareCarbonIntensityStatsObject($value): CarbonIntensityStatsObject {
         $obj = new CarbonIntensityStatsObject($value);
         return $obj;
     }
     
-    private function prepareFactorsObject($value): CarbonIntensityFactorsObject {
+    private function prepareCarbonIntensityGenerationMixObject($value): CarbonIntensityGenerationMixObject {
+        $obj = new CarbonIntensityGenerationMixObject($value);
+        return $obj;
+    }
+    
+    private function prepareCarbonIntensityFactorsObject($value): CarbonIntensityFactorsObject {
         $obj = new CarbonIntensityFactorsObject($value);
         return $obj;
     }

@@ -145,3 +145,38 @@ foreach ($intensityStats2 as $val) {
 }
 
 */
+
+
+/*
+$generationPT24h = $CI->getGenerationPT24h('2021-07-09T08:01Z');
+foreach ($generationPT24h as $val) {
+    //var_dump($val);
+    var_dump($val->get('from'));
+    var_dump($val->get('gas'));
+    var_dump($val->get('solar'));
+    var_dump($val->get('generationmix'));
+}
+*/
+
+/*
+$generation1 = $CI->getGeneration();
+//var_dump($generation1);
+var_dump($generation1->get('from'));
+var_dump($generation1->get('gas'));
+var_dump($generation1->get('solar'));
+var_dump($generation1->get('hydro'));
+var_dump($generation1->get('other'));
+var_dump($generation1->get('wind'));
+var_dump($generation1->get('generationmix'));
+*/
+
+/*
+$generationFromTo1 = $CI->getGenerationFromTo('2021-07-09T08:01Z', '2021-07-09T12:00Z');
+foreach ($generationFromTo1 as $val) {
+    //var_dump($val);
+    var_dump($val->get('from'));
+    var_dump($val->get('gas'));
+    var_dump($val->get('solar'));
+    var_dump($val->get('generationmix'));
+}
+*/

@@ -73,7 +73,7 @@ class CarbonIntensityDataObject
         $this->actual = $this->intensity["actual"];
         $this->index = $this->intensity["index"];
     }
-
+    
     public function get(string $key, string $returntype = "array")
     {
         $tmpString = $this->$key;

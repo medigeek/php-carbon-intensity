@@ -43,7 +43,6 @@ class CarbonIntensity
     
     public function __construct()
     {
-        echo "construct\n";
         $this->client = new Client([
                 // Base URI is used with relative requests
                 'base_uri' => 'https://api.carbonintensity.org.uk/',
@@ -158,6 +157,34 @@ class CarbonIntensity
         //https://carbon-intensity.github.io/api-definitions/#get-intensity-stats-from-to-block
         $endpointString = sprintf('intensity/stats/%s/%s/%s', $from, $to, $block);
         $obj = $this->callApiEndpoint($endpointString, 'CarbonIntensityStatsObject');
+        return $obj->get('data');
+    }
+    
+    public function getGeneration(): CarbonIntensityGenerationMixObject {
+        //https://carbon-intensity.github.io/api-definitions/#get-generation
+        //https://carbon-intensity.github.io/api-definitions/#get-generation-from-to
+        $endpointString = 'generation';
+        $obj = $this->callApiEndpoint($endpointString, 'CarbonIntensityGenerationMixObject', false);
+        return $obj->get('data')[0];
+    }
+    
+    public function getGenerationFromTo(
+        string $from,
+        string $to
+    ): array {
+        //https://carbon-intensity.github.io/api-definitions/#get-generation
+        //https://carbon-intensity.github.io/api-definitions/#get-generation-from-to
+        $endpointString = sprintf('generation/%s/%s', $from, $to);
+        $obj = $this->callApiEndpoint($endpointString, 'CarbonIntensityGenerationMixObject');
+        return $obj->get('data');
+    }
+    
+    public function getGenerationPT24h(
+        string $from
+    ): array {
+        //https://carbon-intensity.github.io/api-definitions/#get-generation-from-pt24h
+        $endpointString = sprintf('generation/%s/pt24h', $from);
+        $obj = $this->callApiEndpoint($endpointString, 'CarbonIntensityGenerationMixObject');
         return $obj->get('data');
     }
 }
