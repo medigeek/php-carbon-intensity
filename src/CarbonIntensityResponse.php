@@ -31,7 +31,6 @@ use GuzzleHttp\Psr7\Response;
 use Medigeek\CarbonIntensity\CarbonIntensityDataObject;
 use Medigeek\CarbonIntensity\CarbonIntensityStatsObject;
 use Medigeek\CarbonIntensity\CarbonIntensityGenerationMixObject;
-use Medigeek\CarbonIntensity\CarbonIntensityRegionObject;
 
 /**
  * Description of CarbonIntensityResponse

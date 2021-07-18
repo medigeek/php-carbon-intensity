@@ -28,15 +28,14 @@ declare(strict_types=1);
 
 namespace Medigeek\CarbonIntensity;
 
-
-use Medigeek\CarbonIntensity\CarbonIntensityRegionsListObject;
+use Medigeek\CarbonIntensity\CarbonIntensityRegionalResponse;
 
 /**
  * Description of CarbonIntensityRegionObject
  *
  * @author Savvas Radevic
  */
-class CarbonIntensityRegionObject extends CarbonIntensityRegionsListObject
+class CarbonIntensityRegionObject extends CarbonIntensityDataObject
 {
     protected array $regionArray;
     protected int $regionid;
@@ -116,7 +115,7 @@ class CarbonIntensityRegionObject extends CarbonIntensityRegionsListObject
      */
     
     
-    public function __construct(array $regionArray, CarbonIntensityRegionsListObject $parentObject) {
+    public function __construct(array $regionArray, CarbonIntensityRegionalResponse $parentObject) {
         //var_dump($carbonIntensityResponse);
         unset($this->dataArray);
         $this->regionArray = $regionArray;

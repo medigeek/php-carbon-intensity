@@ -79,21 +79,21 @@ class CarbonIntensityRegionalResponse extends CarbonIntensityResponse
         //$CIRegionsListObject = new CarbonIntensityRegionsListObject($JSONArray["data"]);
         //$this->data = $CIRegionsListObject;
        
-        $this->dataArray = $dataArray;
+        $this->dataArray = $JSONArray["data"];
         unset($this->data);
         
         $this->regionsArray = $this->dataArray[0]["regions"];
         $this->from = $this->dataArray[0]["from"];
         $this->to = $this->dataArray[0]["to"];
-        unset($this->intensity);
-        unset($this->forecast);
-        unset($this->actual);
-        unset($this->index);
         
+        //var_dump($this->regionsArray);
+        //exit();
         foreach ($this->regionsArray as $value) {
             //call $functionName as method
             $CIRegionObject = new CarbonIntensityRegionObject($value, $this);
             array_push($this->regions, $CIRegionObject);
         }
+        //var_dump($this->regions);
+        //exit();
     }
 }

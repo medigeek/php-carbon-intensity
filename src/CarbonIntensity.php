@@ -201,13 +201,13 @@ class CarbonIntensity
     }
 
     public function getRegional (
-    ): array {
+    ): CarbonIntensityRegionalResponse {
         //https://carbon-intensity.github.io/api-definitions/#get-regional
         $endpointString = 'regional';
         $obj = $this->callApiEndpointRegional($endpointString);
-        var_dump($obj);
-        exit("getRegional");
-        return $obj->get('data')[0];
+        //var_dump($obj->get('regions'));
+        //exit("getRegional");
+        return $obj;
     }
 
 }
