@@ -30,6 +30,7 @@ namespace Medigeek\CarbonIntensity;
 
 use GuzzleHttp\Client;
 use Medigeek\CarbonIntensity\CarbonIntensityResponse;
+use Medigeek\CarbonIntensity\CarbonIntensityRegionalResponse;
 use Exception;
 
 /**
@@ -39,20 +40,19 @@ use Exception;
  */
 class CarbonIntensity
 {
+
     protected $client = null;
-    
-    public function __construct()
-    {
+
+    public function __construct () {
         $this->client = new Client([
-                // Base URI is used with relative requests
-                'base_uri' => 'https://api.carbonintensity.org.uk/',
-                // You can set any number of default request options.
-                'timeout'  => 60.0,
-            ]);
+            // Base URI is used with relative requests
+            'base_uri' => 'https://api.carbonintensity.org.uk/',
+            // You can set any number of default request options.
+            'timeout' => 60.0,
+        ]);
     }
-    
-    public function getIntensityFactors()
-    {
+
+    public function getIntensityFactors () {
         //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity-factors
         $endpointString = 'intensity/factors';
         $obj = $this->callApiEndpoint($endpointString, 'CarbonIntensityFactorsObject');
@@ -60,9 +60,8 @@ class CarbonIntensity
         return $obj->get('data');
         //exit("DEBUG DONE getIntensityDate");
     }
-    
-    public function getIntensityDate(string $date = '', string $period = ''): array
-    {
+
+    public function getIntensityDate (string $date = '', string $period = ''): array {
         //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity-date
         //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity-date-date
         //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity-date-date-period
@@ -70,9 +69,9 @@ class CarbonIntensity
         $obj = $this->callApiEndpoint($endpointString);
         return $obj->get('data');
     }
-    
-    private function callApiEndpoint(
-        string $endpoint, 
+
+    private function callApiEndpoint (
+        string $endpoint,
         string $objectType = 'CarbonIntensityDataObject'
     ): CarbonIntensityResponse {
         try {
@@ -81,28 +80,28 @@ class CarbonIntensity
                 [
                     'headers' => [
                         //'User-Agent' => 'testing/1.0',
-                        'Accept'     => 'application/json',
-                        //'X-Foo'      => ['Bar', 'Baz']
+                        'Accept' => 'application/json',
+                    //'X-Foo'      => ['Bar', 'Baz']
                     ]
                 ]
             );
         } catch (Exception $e) {
             exit(sprintf("exception %s: %s\n", $e->getCode(), $e->getMessage()));
         }
-        
+
         $responseObject = new CarbonIntensityResponse($response, $objectType);
         return $responseObject;
     }
-    
-    public function getIntensity(): CarbonIntensityDataObject {
+
+    public function getIntensity (): CarbonIntensityDataObject {
         //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity
         $endpointString = 'intensity';
         $obj = $this->callApiEndpoint($endpointString);
         return $obj->get('data')[0];
     }
-    
-    public function getIntensityFromTo(
-        string $from = '', 
+
+    public function getIntensityFromTo (
+        string $from = '',
         string $to = ''
     ): array {
         //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity-from
@@ -111,8 +110,8 @@ class CarbonIntensity
         $obj = $this->callApiEndpoint($endpointString);
         return $obj->get('data');
     }
-    
-    public function getIntensityFW24h(
+
+    public function getIntensityFW24h (
         string $from
     ): array {
         //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity-from-fw24h
@@ -120,8 +119,8 @@ class CarbonIntensity
         $obj = $this->callApiEndpoint($endpointString);
         return $obj->get('data');
     }
-    
-    public function getIntensityFW48h(
+
+    public function getIntensityFW48h (
         string $from
     ): array {
         //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity-from-fw48h
@@ -129,8 +128,8 @@ class CarbonIntensity
         $obj = $this->callApiEndpoint($endpointString);
         return $obj->get('data');
     }
-    
-    public function getIntensityPT24h(
+
+    public function getIntensityPT24h (
         string $from
     ): array {
         //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity-from-pt24h
@@ -138,9 +137,8 @@ class CarbonIntensity
         $obj = $this->callApiEndpoint($endpointString);
         return $obj->get('data');
     }
-    
-    
-    public function getIntensityStats(
+
+    public function getIntensityStats (
         string $from,
         string $to,
         string $block = ''
@@ -151,16 +149,16 @@ class CarbonIntensity
         $obj = $this->callApiEndpoint($endpointString, 'CarbonIntensityStatsObject');
         return $obj->get('data');
     }
-    
-    public function getGeneration(): CarbonIntensityGenerationMixObject {
+
+    public function getGeneration (): CarbonIntensityGenerationMixObject {
         //https://carbon-intensity.github.io/api-definitions/#get-generation
         //https://carbon-intensity.github.io/api-definitions/#get-generation-from-to
         $endpointString = 'generation';
         $obj = $this->callApiEndpoint($endpointString, 'CarbonIntensityGenerationMixObject', false);
         return $obj->get('data')[0];
     }
-    
-    public function getGenerationFromTo(
+
+    public function getGenerationFromTo (
         string $from,
         string $to
     ): array {
@@ -170,8 +168,8 @@ class CarbonIntensity
         $obj = $this->callApiEndpoint($endpointString, 'CarbonIntensityGenerationMixObject');
         return $obj->get('data');
     }
-    
-    public function getGenerationPT24h(
+
+    public function getGenerationPT24h (
         string $from
     ): array {
         //https://carbon-intensity.github.io/api-definitions/#get-generation-from-pt24h
@@ -179,4 +177,37 @@ class CarbonIntensity
         $obj = $this->callApiEndpoint($endpointString, 'CarbonIntensityGenerationMixObject');
         return $obj->get('data');
     }
+    
+    private function callApiEndpointRegional (
+        string $endpoint
+    ): CarbonIntensityRegionalResponse {
+        try {
+            $response = $this->client->get(
+                $endpoint,
+                [
+                    'headers' => [
+                        //'User-Agent' => 'testing/1.0',
+                        'Accept' => 'application/json',
+                    //'X-Foo'      => ['Bar', 'Baz']
+                    ]
+                ]
+            );
+        } catch (Exception $e) {
+            exit(sprintf("exception %s: %s\n", $e->getCode(), $e->getMessage()));
+        }
+
+        $responseObject = new CarbonIntensityRegionalResponse($response);
+        return $responseObject;
+    }
+
+    public function getRegional (
+    ): array {
+        //https://carbon-intensity.github.io/api-definitions/#get-regional
+        $endpointString = 'regional';
+        $obj = $this->callApiEndpointRegional($endpointString);
+        var_dump($obj);
+        exit("getRegional");
+        return $obj->get('data')[0];
+    }
+
 }

@@ -180,3 +180,14 @@ foreach ($generationFromTo1 as $val) {
     var_dump($val->get('generationmix'));
 }
 */
+
+$regional1 = $CI->getRegional();
+var_dump($regional1);
+var_dump($regional1->get('from'));
+foreach ($regional as $val) {
+    //var_dump($val);
+    var_dump($val->get('regionid'));
+    var_dump($val->get('shortname'));
+    var_dump($val->get('gas'));
+    var_dump($val->get('solar'));
+}

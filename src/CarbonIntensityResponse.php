@@ -31,6 +31,7 @@ use GuzzleHttp\Psr7\Response;
 use Medigeek\CarbonIntensity\CarbonIntensityDataObject;
 use Medigeek\CarbonIntensity\CarbonIntensityStatsObject;
 use Medigeek\CarbonIntensity\CarbonIntensityGenerationMixObject;
+use Medigeek\CarbonIntensity\CarbonIntensityRegionObject;
 
 /**
  * Description of CarbonIntensityResponse
@@ -39,10 +40,11 @@ use Medigeek\CarbonIntensity\CarbonIntensityGenerationMixObject;
  */
 class CarbonIntensityResponse
 {
-    private string $dataRaw = "";
-    private array $data = [];
-    private int $statusCode;
-    private string $statusMessage;
+    protected string $dataRaw = "";
+    //array or CarbonIntensityRegionsListObject
+    protected array $data = [];
+    protected int $statusCode;
+    protected string $statusMessage;
     
     public function __construct(
         Response $carbonIntensityResponse, 
@@ -79,9 +81,8 @@ class CarbonIntensityResponse
         //or prepareCarbonIntensityGenerationMixObject
         //or prepareCarbonIntensityFactorsObject
         $methodName = 'prepare'.$objectType;
-        
         if ($dataIsArray == false) {
-            // /generation endpoint returns a single item, not an array
+            // getGeneration(): /generation endpoint returns a single item, not an array
             array_push($this->data, $this->$methodName($JSONArray["data"]));
         } else {
             foreach ($JSONArray["data"] as $value) {
