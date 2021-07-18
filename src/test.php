@@ -181,6 +181,7 @@ foreach ($generationFromTo1 as $val) {
 }
 */
 
+/*
 $regional1 = $CI->getRegional();
 //var_dump($regional1);
 var_dump($regional1->get('from'));
@@ -193,3 +194,4 @@ foreach ($regional1->get('regions') as $val) {
     var_dump($val->get('solar'));
     //var_dump($val->get('generationmix'));
 }
+*/

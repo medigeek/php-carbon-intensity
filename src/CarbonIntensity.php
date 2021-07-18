@@ -56,9 +56,7 @@ class CarbonIntensity
         //https://carbon-intensity.github.io/api-definitions/?shell#get-intensity-factors
         $endpointString = 'intensity/factors';
         $obj = $this->callApiEndpoint($endpointString, 'CarbonIntensityFactorsObject');
-        //var_dump($obj);
         return $obj->get('data');
-        //exit("DEBUG DONE getIntensityDate");
     }
 
     public function getIntensityDate (string $date = '', string $period = ''): array {
@@ -79,9 +77,7 @@ class CarbonIntensity
                 $endpoint,
                 [
                     'headers' => [
-                        //'User-Agent' => 'testing/1.0',
                         'Accept' => 'application/json',
-                    //'X-Foo'      => ['Bar', 'Baz']
                     ]
                 ]
             );
@@ -186,9 +182,7 @@ class CarbonIntensity
                 $endpoint,
                 [
                     'headers' => [
-                        //'User-Agent' => 'testing/1.0',
                         'Accept' => 'application/json',
-                    //'X-Foo'      => ['Bar', 'Baz']
                     ]
                 ]
             );
@@ -205,8 +199,6 @@ class CarbonIntensity
         //https://carbon-intensity.github.io/api-definitions/#get-regional
         $endpointString = 'regional';
         $obj = $this->callApiEndpointRegional($endpointString);
-        //var_dump($obj->get('regions'));
-        //exit("getRegional");
         return $obj;
     }
 
