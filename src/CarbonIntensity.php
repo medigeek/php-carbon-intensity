@@ -175,7 +175,8 @@ class CarbonIntensity
     }
     
     private function callApiEndpointRegional (
-        string $endpoint
+        string $endpoint,
+        bool $hasDataArray = false
     ): CarbonIntensityRegionalResponse {
         try {
             $response = $this->client->get(
@@ -190,15 +191,35 @@ class CarbonIntensity
             exit(sprintf("exception %s: %s\n", $e->getCode(), $e->getMessage()));
         }
 
-        $responseObject = new CarbonIntensityRegionalResponse($response);
+        $responseObject = new CarbonIntensityRegionalResponse($response, $hasDataArray);
         return $responseObject;
     }
 
-    public function getRegional (
-    ): CarbonIntensityRegionalResponse {
+    public function getRegional (): CarbonIntensityRegionalResponse {
         //https://carbon-intensity.github.io/api-definitions/#get-regional
         $endpointString = 'regional';
         $obj = $this->callApiEndpointRegional($endpointString);
+        return $obj;
+    }
+    
+    public function getRegionalEngland (): CarbonIntensityRegionalResponse {
+        //https://carbon-intensity.github.io/api-definitions/#get-regional
+        $endpointString = 'regional/england';
+        $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = true);
+        return $obj;
+    }
+    
+    public function getRegionalScotland (): CarbonIntensityRegionalResponse {
+        //https://carbon-intensity.github.io/api-definitions/#get-regional
+        $endpointString = 'regional/scotland';
+        $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = true);
+        return $obj;
+    }
+    
+    public function getRegionalWales (): CarbonIntensityRegionalResponse {
+        //https://carbon-intensity.github.io/api-definitions/#get-regional
+        $endpointString = 'regional/wales';
+        $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = true);
         return $obj;
     }
 

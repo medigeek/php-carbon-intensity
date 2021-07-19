@@ -195,3 +195,55 @@ foreach ($regional1->get('regions') as $val) {
     //var_dump($val->get('generationmix'));
 }
 */
+
+/*
+$regionalEngland1 = $CI->getRegionalEngland();
+//var_dump($regionalEngland1);
+var_dump($regionalEngland1->get('from'));
+var_dump($regionalEngland1->get('dnoregion'));
+var_dump($regionalEngland1->get('shortname'));
+foreach ($regionalEngland1->get('data') as $val) {
+    //var_dump($val);
+    var_dump($val->get('from'));
+    var_dump($val->get('shortname'));
+    var_dump($val->get('regionid'));
+    var_dump($val->get('gas'));
+    var_dump($val->get('solar'));
+    //var_dump($val->get('generationmix'));
+}
+*/
+
+/*
+$regionalScotland1 = $CI->getRegionalScotland();
+//var_dump($regionalEngland1);
+var_dump($regionalScotland1->get('from'));
+var_dump($regionalScotland1->get('dnoregion'));
+var_dump($regionalScotland1->get('shortname'));
+foreach ($regionalScotland1->get('data') as $val) {
+    //var_dump($val);
+    var_dump($val->get('from'));
+    var_dump($val->get('shortname'));
+    var_dump($val->get('regionid'));
+    var_dump($val->get('gas'));
+    var_dump($val->get('solar'));
+    //var_dump($val->get('generationmix'));
+}
+*/
+
+/*
+$regionalWales1 = $CI->getRegionalWales();
+//var_dump($regionalEngland1);
+var_dump($regionalWales1->get('from'));
+var_dump($regionalWales1->get('dnoregion'));
+var_dump($regionalWales1->get('shortname'));
+foreach ($regionalWales1->get('data') as $val) {
+    //var_dump($val);
+    var_dump($val->get('from'));
+    var_dump($val->get('shortname'));
+    var_dump($val->get('regionid'));
+    var_dump($val->get('gas'));
+    var_dump($val->get('solar'));
+    //var_dump($val->get('generationmix'));
+}
+*/
+

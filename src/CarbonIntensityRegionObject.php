@@ -115,7 +115,11 @@ class CarbonIntensityRegionObject extends CarbonIntensityDataObject
      */
     
     
-    public function __construct(array $regionArray, CarbonIntensityRegionalResponse $parentObject) {
+    public function __construct(
+        array $regionArray, 
+        CarbonIntensityRegionalResponse $parentObject,
+        bool $hasDataArray = false
+    ) {
         //var_dump($carbonIntensityResponse);
         unset($this->dataArray);
         $this->regionArray = $regionArray;
@@ -126,9 +130,17 @@ class CarbonIntensityRegionObject extends CarbonIntensityDataObject
         $this->from = $parentObject->get("from");
         $this->to = $parentObject->get("to");
         
-        $this->regionid = $this->regionArray["regionid"];
-        $this->dnoregion = $this->regionArray["dnoregion"];
-        $this->shortname = $this->regionArray["shortname"];
+        if ($hasDataArray == true) {
+            // /regional/england has data array
+            $this->regionid = $parentObject->get("regionid");
+            $this->dnoregion = $parentObject->get("dnoregion");
+            $this->shortname = $parentObject->get("shortname");
+        }
+        else {
+            $this->regionid = $this->regionArray["regionid"];
+            $this->dnoregion = $this->regionArray["dnoregion"];
+            $this->shortname = $this->regionArray["shortname"];
+        }
         $this->intensity = $this->regionArray["intensity"];
         $this->forecast = $this->intensity["forecast"];
         $this->index = $this->intensity["index"];

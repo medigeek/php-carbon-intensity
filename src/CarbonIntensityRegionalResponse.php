@@ -45,11 +45,16 @@ class CarbonIntensityRegionalResponse extends CarbonIntensityResponse
     
     protected string $from;
     protected string $to;
+    protected array $subDataArray;
     protected array $regionsArray;
     protected array $regions = [];
+    protected int   $regionid;
+    protected string $dnoregion;
+    protected string $shortname;
     
     public function __construct(
-        Response $carbonIntensityResponse
+        Response $carbonIntensityResponse,
+        bool $hasDataArray = true
     ) {
         //var_dump($carbonIntensityResponse);
         $this->dataRaw = $carbonIntensityResponse->getBody()->getContents();
@@ -80,18 +85,40 @@ class CarbonIntensityRegionalResponse extends CarbonIntensityResponse
         //$this->data = $CIRegionsListObject;
        
         $this->dataArray = $JSONArray["data"];
-        unset($this->data);
+        //var_dump($JSONArray["data"]);
+        //exit("dump JSONArray[data]");
+        //unset($this->data);
         
-        $this->regionsArray = $this->dataArray[0]["regions"];
-        $this->from = $this->dataArray[0]["from"];
-        $this->to = $this->dataArray[0]["to"];
-        
-        //var_dump($this->regionsArray);
-        //exit();
-        foreach ($this->regionsArray as $value) {
-            //call $functionName as method
-            $CIRegionObject = new CarbonIntensityRegionObject($value, $this);
-            array_push($this->regions, $CIRegionObject);
+        if ($hasDataArray == true) {
+            //if it has data array (/regional/england)
+            $this->regionid = $this->dataArray[0]["regionid"];
+            $this->dnoregion = $this->dataArray[0]["dnoregion"];
+            $this->shortname = $this->dataArray[0]["shortname"];
+            
+            $this->subDataArray = $this->dataArray[0]["data"];
+            $this->from = $this->subDataArray[0]["from"];
+            $this->to = $this->subDataArray[0]["to"];
+            
+            foreach ($this->subDataArray as $value) {
+                //call $functionName as method
+                $CIRegionObject = new CarbonIntensityRegionObject($value, $this, $hasDataArray);
+                array_push($this->data, $CIRegionObject);
+            }
+        } else {
+            //if it has regions array:
+            unset($this->data);
+            unset($this->subDataArray);
+            $this->regionsArray = $this->dataArray[0]["regions"];
+            $this->from = $this->dataArray[0]["from"];
+            $this->to = $this->dataArray[0]["to"];
+
+            //var_dump($this->regionsArray);
+            //exit();
+            foreach ($this->regionsArray as $value) {
+                //call $functionName as method
+                $CIRegionObject = new CarbonIntensityRegionObject($value, $this);
+                array_push($this->regions, $CIRegionObject);
+            }
         }
         //var_dump($this->regions);
         //exit();
