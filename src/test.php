@@ -320,7 +320,7 @@ foreach ($regionalIntensityFromFw24h1->get('regions') as $val) {
 
 /*
 $regionalIntensityFromFw24hPostcode1 = $CI->getRegionalIntensityFromFw24hPostcode('2021-07-20T11:30Z', 'RG10');
-//var_dump($regionalIntensityFromFw24h1);
+//var_dump($regionalIntensityFromFw24hPostcode1);
 var_dump($regionalIntensityFromFw24hPostcode1->get('regionid'));
 var_dump($regionalIntensityFromFw24hPostcode1->get('postcode'));
 var_dump($regionalIntensityFromFw24hPostcode1->get('dnoregion'));
@@ -338,7 +338,7 @@ foreach ($regionalIntensityFromFw24hPostcode1->get('data') as $val) {
 
 /*
 $regionalIntensityFromFw24hRegionID1 = $CI->getRegionalIntensityFromFw24hRegionID('2021-07-20T11:30Z', 13);
-//var_dump($regionalIntensityFromFw24h1);
+//var_dump($regionalIntensityFromFw24hRegionID1);
 var_dump($regionalIntensityFromFw24hRegionID1->get('regionid'));
 var_dump($regionalIntensityFromFw24hRegionID1->get('dnoregion'));
 var_dump($regionalIntensityFromFw24hRegionID1->get('shortname'));
@@ -353,3 +353,52 @@ foreach ($regionalIntensityFromFw24hRegionID1->get('data') as $val) {
 }
 */
 
+/*
+$regionalIntensityFromFw48h1 = $CI->getRegionalIntensityFromFw48h('2021-07-20T11:30Z');
+//var_dump($regionalIntensityFromFw48h1);
+var_dump($regionalIntensityFromFw48h1->get('from'));
+foreach ($regionalIntensityFromFw48h1->get('regions') as $val) {
+    //var_dump($val);
+    var_dump($val->get('from'));
+    var_dump($val->get('shortname'));
+    var_dump($val->get('regionid'));
+    var_dump($val->get('gas'));
+    var_dump($val->get('solar'));
+    //var_dump($val->get('generationmix'));
+}
+*/
+
+/*
+$regionalIntensityFromFw48hPostcode1 = $CI->getRegionalIntensityFromFw48hPostcode('2021-07-20T11:30Z', 'RG10');
+//var_dump($regionalIntensityFromFw48hPostcode1);
+var_dump($regionalIntensityFromFw48hPostcode1->get('regionid'));
+var_dump($regionalIntensityFromFw48hPostcode1->get('postcode'));
+var_dump($regionalIntensityFromFw48hPostcode1->get('dnoregion'));
+var_dump($regionalIntensityFromFw48hPostcode1->get('shortname'));
+foreach ($regionalIntensityFromFw48hPostcode1->get('data') as $val) {
+    //var_dump($val);
+    var_dump($val->get('from'));
+    var_dump($val->get('shortname'));
+    var_dump($val->get('regionid'));
+    var_dump($val->get('gas'));
+    var_dump($val->get('solar'));
+    //var_dump($val->get('generationmix'));
+}
+*/
+
+/*
+$regionalIntensityFromFw48hRegionID1 = $CI->getRegionalIntensityFromFw48hRegionID('2021-07-20T11:30Z', 13);
+//var_dump($regionalIntensityFromFw48hRegionID1);
+var_dump($regionalIntensityFromFw48hRegionID1->get('regionid'));
+var_dump($regionalIntensityFromFw48hRegionID1->get('dnoregion'));
+var_dump($regionalIntensityFromFw48hRegionID1->get('shortname'));
+foreach ($regionalIntensityFromFw48hRegionID1->get('data') as $val) {
+    //var_dump($val);
+    var_dump($val->get('from'));
+    var_dump($val->get('shortname'));
+    var_dump($val->get('regionid'));
+    var_dump($val->get('gas'));
+    var_dump($val->get('solar'));
+    //var_dump($val->get('generationmix'));
+}
+*/
