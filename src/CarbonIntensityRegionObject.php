@@ -41,6 +41,7 @@ class CarbonIntensityRegionObject extends CarbonIntensityDataObject
     protected int $regionid;
     protected string $dnoregion;
     protected string $shortname;
+    protected string $postcode;
     
     protected array $intensity;
     protected int $forecast;
@@ -130,11 +131,15 @@ class CarbonIntensityRegionObject extends CarbonIntensityDataObject
         $this->from = $parentObject->get("from");
         $this->to = $parentObject->get("to");
         
+        
         if ($hasDataArray == true) {
             // /regional/england has data array
             $this->regionid = $parentObject->get("regionid");
             $this->dnoregion = $parentObject->get("dnoregion");
             $this->shortname = $parentObject->get("shortname");
+            if ($parentObject->get("postcode")) {
+                $this->postcode = $parentObject->get("postcode");
+            }
         }
         else {
             $this->regionid = $this->regionArray["regionid"];

@@ -51,6 +51,7 @@ class CarbonIntensityRegionalResponse extends CarbonIntensityResponse
     protected int   $regionid;
     protected string $dnoregion;
     protected string $shortname;
+    protected string $postcode;
     
     public function __construct(
         Response $carbonIntensityResponse,
@@ -94,6 +95,9 @@ class CarbonIntensityRegionalResponse extends CarbonIntensityResponse
             $this->regionid = $this->dataArray[0]["regionid"];
             $this->dnoregion = $this->dataArray[0]["dnoregion"];
             $this->shortname = $this->dataArray[0]["shortname"];
+            if (array_key_exists('postcode', $this->dataArray[0])) {
+                $this->postcode = $this->dataArray[0]["postcode"];
+            }
             
             $this->subDataArray = $this->dataArray[0]["data"];
             $this->from = $this->subDataArray[0]["from"];

@@ -222,5 +222,16 @@ class CarbonIntensity
         $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = true);
         return $obj;
     }
+    
+    
+    public function getRegionalPostcode ($postcode): CarbonIntensityRegionalResponse {
+        //https://carbon-intensity.github.io/api-definitions/#get-regional
+        $endpointString = sprintf('regional/postcode/%s', $postcode);
+        //regex validation: '^([A-Z][A-HJ-Y]?[0-9][A-Z0-9]?|GIR)$'
+        $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = true);
+        return $obj;
+    }
+    
+    
 
 }

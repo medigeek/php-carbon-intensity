@@ -247,3 +247,23 @@ foreach ($regionalWales1->get('data') as $val) {
 }
 */
 
+/*
+$regionalPostcode1 = $CI->getRegionalPostcode('RG10');
+//var_dump($regionalPostcode1);
+var_dump($regionalPostcode1->get('from'));
+var_dump($regionalPostcode1->get('dnoregion'));
+var_dump($regionalPostcode1->get('shortname'));
+var_dump($regionalPostcode1->get('postcode'));
+foreach ($regionalPostcode1->get('data') as $val) {
+    //var_dump($val);
+    var_dump($val->get('from'));
+    var_dump($val->get('postcode'));
+    var_dump($val->get('shortname'));
+    var_dump($val->get('regionid'));
+    var_dump($val->get('gas'));
+    var_dump($val->get('solar'));
+    //var_dump($val->get('generationmix'));
+}
+*/
+
+
