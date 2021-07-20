@@ -27,6 +27,7 @@ declare(strict_types=1);
  */
 
 namespace Medigeek\CarbonIntensity;
+
 use GuzzleHttp\Psr7\Response;
 use Medigeek\CarbonIntensity\CarbonIntensityDataObject;
 use Medigeek\CarbonIntensity\CarbonIntensityStatsObject;
@@ -39,14 +40,15 @@ use Medigeek\CarbonIntensity\CarbonIntensityGenerationMixObject;
  */
 class CarbonIntensityResponse
 {
+
     protected string $dataRaw = "";
     //array or CarbonIntensityRegionsListObject
     protected array $data = [];
     protected int $statusCode;
     protected string $statusMessage;
-    
-    public function __construct(
-        Response $carbonIntensityResponse, 
+
+    public function __construct (
+        Response $carbonIntensityResponse,
         string $objectType = 'CarbonIntensityDataObject',
         bool $dataIsArray = true
     ) {
@@ -56,30 +58,30 @@ class CarbonIntensityResponse
         //var_dump($JSONArray);
         if (array_key_exists("error", $JSONArray)) {
             /*
-                {
-                "error": {
-                  "code": "400 Bad Request",
-                  "message": "Please enter a valid date in ISO8601 format 
-                             YYYY-MM-DD and period 1-48 e.g. /intensity/date/2017-08-25/42"
-                  }
-                }
+              {
+              "error": {
+              "code": "400 Bad Request",
+              "message": "Please enter a valid date in ISO8601 format
+              YYYY-MM-DD and period 1-48 e.g. /intensity/date/2017-08-25/42"
+              }
+              }
              */
-            
+
             exit(
                 sprintf(
-                    "error %s: %s\n", 
+                    "error %s: %s\n",
                     $JSONArray["error"]["code"],
                     $JSONArray["error"]["message"])
             );
         }
         $this->statusCode = $carbonIntensityResponse->getStatusCode();
         $this->statusMessage = $carbonIntensityResponse->getReasonPhrase();
-        
+
         //call prepareCarbonIntensityDataObject
         //or prepareCarbonIntensityStatsObject
         //or prepareCarbonIntensityGenerationMixObject
         //or prepareCarbonIntensityFactorsObject
-        $methodName = 'prepare'.$objectType;
+        $methodName = 'prepare' . $objectType;
         if ($dataIsArray == false) {
             // getGeneration(): /generation endpoint returns a single item, not an array
             array_push($this->data, $this->$methodName($JSONArray["data"]));
@@ -90,29 +92,28 @@ class CarbonIntensityResponse
             }
         }
     }
-    
-    private function prepareCarbonIntensityDataObject($value): CarbonIntensityDataObject {
+
+    private function prepareCarbonIntensityDataObject ($value): CarbonIntensityDataObject {
         $obj = new CarbonIntensityDataObject($value);
         return $obj;
     }
-    
-    private function prepareCarbonIntensityStatsObject($value): CarbonIntensityStatsObject {
+
+    private function prepareCarbonIntensityStatsObject ($value): CarbonIntensityStatsObject {
         $obj = new CarbonIntensityStatsObject($value);
         return $obj;
     }
-    
-    private function prepareCarbonIntensityGenerationMixObject($value): CarbonIntensityGenerationMixObject {
+
+    private function prepareCarbonIntensityGenerationMixObject ($value): CarbonIntensityGenerationMixObject {
         $obj = new CarbonIntensityGenerationMixObject($value);
         return $obj;
     }
-    
-    private function prepareCarbonIntensityFactorsObject($value): CarbonIntensityFactorsObject {
+
+    private function prepareCarbonIntensityFactorsObject ($value): CarbonIntensityFactorsObject {
         $obj = new CarbonIntensityFactorsObject($value);
         return $obj;
     }
-    
-    public function get(string $key, string $returntype = "array")
-    {
+
+    public function get (string $key, string $returntype = "array") {
 
         $tmpString = $this->$key;
 
@@ -123,20 +124,17 @@ class CarbonIntensityResponse
             return $jsonArray;
         }
     }
-    
-    public function exists(string $key): bool
-    {
+
+    public function exists (string $key): bool {
         return isset($this->$key);
     }
-    
-    public function set(string $key, $value)
-    {
+
+    public function set (string $key, $value) {
         $this->$key = $value;
         return true;
     }
 
-    public function getMultiple(array $keys, string $returntype = "array")
-    {
+    public function getMultiple (array $keys, string $returntype = "array") {
         $tmpArray = [];
         foreach ($keys as $key) {
             $tmpArray["$key"] = $this->$key;
@@ -150,15 +148,13 @@ class CarbonIntensityResponse
         }
     }
 
-    public function setMultiple(array $keyValuePairs)
-    {
+    public function setMultiple (array $keyValuePairs) {
         foreach ($keyValuePairs as $key => $value) {
             $this->$key = $this->$value;
         }
     }
 
-    public function getAll(string $returntype = "array")
-    {
+    public function getAll (string $returntype = "array") {
         $keyValuePairs = get_object_vars($this);
         ksort($keyValuePairs);
 
@@ -169,4 +165,5 @@ class CarbonIntensityResponse
             return $KeyValuePairsJSON;
         }
     }
+
 }

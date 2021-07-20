@@ -27,6 +27,7 @@ declare(strict_types=1);
  */
 
 namespace Medigeek\CarbonIntensity;
+
 use GuzzleHttp\Psr7\Response;
 use Medigeek\CarbonIntensity\CarbonIntensityRegionObject;
 
@@ -37,23 +38,23 @@ use Medigeek\CarbonIntensity\CarbonIntensityRegionObject;
  */
 class CarbonIntensityRegionalResponse extends CarbonIntensityResponse
 {
-    /*private string $dataRaw = "";
-    private array $data = [];
-    private int $statusCode;
-    private string $statusMessage;
-    */
-    
+    /* private string $dataRaw = "";
+      private array $data = [];
+      private int $statusCode;
+      private string $statusMessage;
+     */
+
     protected string $from;
     protected string $to;
     protected array $subDataArray;
     protected array $regionsArray;
     protected array $regions = [];
-    protected int   $regionid;
+    protected int $regionid;
     protected string $dnoregion;
     protected string $shortname;
     protected string $postcode;
-    
-    public function __construct(
+
+    public function __construct (
         Response $carbonIntensityResponse,
         bool $hasDataArray = true,
         bool $getDataFromFirstKey = true
@@ -64,38 +65,40 @@ class CarbonIntensityRegionalResponse extends CarbonIntensityResponse
         //var_dump($JSONArray);
         if (array_key_exists("error", $JSONArray)) {
             /*
-                {
-                "error": {
-                  "code": "400 Bad Request",
-                  "message": "Please enter a valid date in ISO8601 format 
-                             YYYY-MM-DD and period 1-48 e.g. /intensity/date/2017-08-25/42"
-                  }
-                }
+              {
+              "error": {
+              "code": "400 Bad Request",
+              "message": "Please enter a valid date in ISO8601 format
+              YYYY-MM-DD and period 1-48 e.g. /intensity/date/2017-08-25/42"
+              }
+              }
              */
-            
+
             exit(
                 sprintf(
-                    "error %s: %s\n", 
+                    "error %s: %s\n",
                     $JSONArray["error"]["code"],
                     $JSONArray["error"]["message"])
             );
         }
         $this->statusCode = $carbonIntensityResponse->getStatusCode();
         $this->statusMessage = $carbonIntensityResponse->getReasonPhrase();
-        
+
         //$CIRegionsListObject = new CarbonIntensityRegionsListObject($JSONArray["data"]);
         //$this->data = $CIRegionsListObject;
-       
+
         $this->dataArray = $JSONArray["data"];
         //var_dump($JSONArray["data"]);
         //exit("dump JSONArray[data]");
         //unset($this->data);
-        
+
         if ($hasDataArray == true) {
             //if it has data array (/regional/england)
             if ($getDataFromFirstKey) {
                 $this->regionid = $this->dataArray[0]["regionid"];
-                $this->dnoregion = $this->dataArray[0]["dnoregion"];
+                if (array_key_exists('dnoregion', $this->dataArray[0])) {
+                    $this->dnoregion = $this->dataArray[0]["dnoregion"];
+                }
                 $this->shortname = $this->dataArray[0]["shortname"];
 
                 if (array_key_exists('postcode', $this->dataArray[0])) {
@@ -111,13 +114,14 @@ class CarbonIntensityRegionalResponse extends CarbonIntensityResponse
                     $CIRegionObject = new CarbonIntensityRegionObject($value, $this, $hasDataArray, $getDataFromFirstKey);
                     array_push($this->data, $CIRegionObject);
                 }
-            }
-            else {
+            } else {
                 //$getDataFromFirstKey
                 //regional/intensity/2021-07-20T11:30Z/fw24h/postcode/RG10
                 //doesn't have data in first key of $this->dataArray[0]
                 $this->regionid = $this->dataArray["regionid"];
-                $this->dnoregion = $this->dataArray["dnoregion"];
+                if (array_key_exists('dnoregion', $this->dataArray)) {
+                    $this->dnoregion = $this->dataArray["dnoregion"];
+                }
                 $this->shortname = $this->dataArray["shortname"];
 
                 if (array_key_exists('postcode', $this->dataArray)) {
@@ -134,7 +138,6 @@ class CarbonIntensityRegionalResponse extends CarbonIntensityResponse
                     array_push($this->data, $CIRegionObject);
                 }
             }
-            
         } else {
             //if it has regions array:
             unset($this->data);
@@ -154,4 +157,5 @@ class CarbonIntensityRegionalResponse extends CarbonIntensityResponse
         //var_dump($this->regions);
         //exit();
     }
+
 }

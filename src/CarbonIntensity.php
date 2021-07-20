@@ -173,7 +173,7 @@ class CarbonIntensity
         $obj = $this->callApiEndpoint($endpointString, 'CarbonIntensityGenerationMixObject');
         return $obj->get('data');
     }
-    
+
     private function callApiEndpointRegional (
         string $endpoint,
         bool $hasDataArray = false,
@@ -202,29 +202,28 @@ class CarbonIntensity
         $obj = $this->callApiEndpointRegional($endpointString);
         return $obj;
     }
-    
+
     public function getRegionalEngland (): CarbonIntensityRegionalResponse {
         //https://carbon-intensity.github.io/api-definitions/#get-regional-england
         $endpointString = 'regional/england';
         $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = true);
         return $obj;
     }
-    
+
     public function getRegionalScotland (): CarbonIntensityRegionalResponse {
         //https://carbon-intensity.github.io/api-definitions/#get-regional-scotland
         $endpointString = 'regional/scotland';
         $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = true);
         return $obj;
     }
-    
+
     public function getRegionalWales (): CarbonIntensityRegionalResponse {
         //https://carbon-intensity.github.io/api-definitions/#get-regional-wales
         $endpointString = 'regional/wales';
         $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = true);
         return $obj;
     }
-    
-    
+
     public function getRegionalPostcode (string $postcode): CarbonIntensityRegionalResponse {
         //https://carbon-intensity.github.io/api-definitions/#get-regional-postcode-postcode
         $endpointString = sprintf('regional/postcode/%s', $postcode);
@@ -232,8 +231,7 @@ class CarbonIntensity
         $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = true);
         return $obj;
     }
-    
-    
+
     public function getRegionalRegionID (int $regionID): CarbonIntensityRegionalResponse {
         //https://carbon-intensity.github.io/api-definitions/#get-regional-regionid-regionid
         $endpointString = sprintf('regional/regionid/%s', $regionID);
@@ -241,24 +239,21 @@ class CarbonIntensity
         $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = true);
         return $obj;
     }
-    
-    
+
     public function getRegionalIntensityFromFw24h (string $from): CarbonIntensityRegionalResponse {
         //https://carbon-intensity.github.io/api-definitions/#get-regional-intensity-from-fw24h
         $endpointString = sprintf('regional/intensity/%s/fw24h', $from);
         $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = false);
         return $obj;
     }
-    
-    
+
     public function getRegionalIntensityFromFw24hPostcode (string $from, string $postcode): CarbonIntensityRegionalResponse {
         //https://carbon-intensity.github.io/api-definitions/#get-regional-intensity-from-fw24h-postcode-postcode
         $endpointString = sprintf('regional/intensity/%s/fw24h/postcode/%s', $from, $postcode);
         $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = true, $getDataFromFirstKey = false);
         return $obj;
     }
-    
-    
+
     public function getRegionalIntensityFromFw24hRegionID (string $from, int $regionID): CarbonIntensityRegionalResponse {
         //https://carbon-intensity.github.io/api-definitions/#get-regional-intensity-from-fw24h-postcode-postcode
         $endpointString = sprintf('regional/intensity/%s/fw24h/regionid/%s', $from, $regionID);
@@ -266,24 +261,21 @@ class CarbonIntensity
         $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = true, $getDataFromFirstKey = false);
         return $obj;
     }
-    
-    
+
     public function getRegionalIntensityFromFw48h (string $from): CarbonIntensityRegionalResponse {
         //https://carbon-intensity.github.io/api-definitions/#get-regional-intensity-from-fw48h
         $endpointString = sprintf('regional/intensity/%s/fw48h', $from);
         $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = false);
         return $obj;
     }
-    
-    
+
     public function getRegionalIntensityFromFw48hPostcode (string $from, string $postcode): CarbonIntensityRegionalResponse {
         //https://carbon-intensity.github.io/api-definitions/#get-regional-intensity-from-fw48h-postcode-postcode
         $endpointString = sprintf('regional/intensity/%s/fw48h/postcode/%s', $from, $postcode);
         $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = true, $getDataFromFirstKey = false);
         return $obj;
     }
-    
-    
+
     public function getRegionalIntensityFromFw48hRegionID (string $from, int $regionID): CarbonIntensityRegionalResponse {
         //https://carbon-intensity.github.io/api-definitions/#get-regional-intensity-from-fw48h-regionid-regionid
         $endpointString = sprintf('regional/intensity/%s/fw48h/regionid/%s', $from, $regionID);
@@ -291,24 +283,21 @@ class CarbonIntensity
         $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = true, $getDataFromFirstKey = false);
         return $obj;
     }
-    
-    
+
     public function getRegionalIntensityFromPt24h (string $from): CarbonIntensityRegionalResponse {
         //https://carbon-intensity.github.io/api-definitions/#get-regional-intensity-from-pt24h
         $endpointString = sprintf('regional/intensity/%s/pt24h', $from);
         $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = false);
         return $obj;
     }
-    
-    
+
     public function getRegionalIntensityFromPt24hPostcode (string $from, string $postcode): CarbonIntensityRegionalResponse {
         //https://carbon-intensity.github.io/api-definitions/#get-regional-intensity-from-pt24h-postcode-postcode
         $endpointString = sprintf('regional/intensity/%s/pt24h/postcode/%s', $from, $postcode);
         $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = true, $getDataFromFirstKey = false);
         return $obj;
     }
-    
-    
+
     public function getRegionalIntensityFromPt24hRegionID (string $from, int $regionID): CarbonIntensityRegionalResponse {
         //https://carbon-intensity.github.io/api-definitions/#get-regional-intensity-from-pt24h-regionid-regionid
         $endpointString = sprintf('regional/intensity/%s/pt24h/regionid/%s', $from, $regionID);
@@ -316,7 +305,27 @@ class CarbonIntensity
         $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = true, $getDataFromFirstKey = false);
         return $obj;
     }
-    
-    
+
+    public function getRegionalIntensityFromTo (string $from, string $to): CarbonIntensityRegionalResponse {
+        //https://carbon-intensity.github.io/api-definitions/#get-regional-intensity-from-pt24h
+        $endpointString = sprintf('regional/intensity/%s/%s', $from, $to);
+        $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = false);
+        return $obj;
+    }
+
+    public function getRegionalIntensityFromToPostcode (string $from, string $to, string $postcode): CarbonIntensityRegionalResponse {
+        //https://carbon-intensity.github.io/api-definitions/#get-regional-intensity-from-pt24h-postcode-postcode
+        $endpointString = sprintf('regional/intensity/%s/%s/postcode/%s', $from, $to, $postcode);
+        $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = true, $getDataFromFirstKey = false);
+        return $obj;
+    }
+
+    public function getRegionalIntensityFromToRegionID (string $from, string $to, int $regionID): CarbonIntensityRegionalResponse {
+        //https://carbon-intensity.github.io/api-definitions/#get-regional-intensity-from-pt24h-regionid-regionid
+        $endpointString = sprintf('regional/intensity/%s/%s/regionid/%s', $from, $to, $regionID);
+        //validation: [1-17] https://carbon-intensity.github.io/api-definitions/#region-list
+        $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = true, $getDataFromFirstKey = false);
+        return $obj;
+    }
 
 }
