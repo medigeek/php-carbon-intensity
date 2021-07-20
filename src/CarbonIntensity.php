@@ -293,5 +293,30 @@ class CarbonIntensity
     }
     
     
+    public function getRegionalIntensityFromPt24h (string $from): CarbonIntensityRegionalResponse {
+        //https://carbon-intensity.github.io/api-definitions/#get-regional-intensity-from-pt24h
+        $endpointString = sprintf('regional/intensity/%s/pt24h', $from);
+        $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = false);
+        return $obj;
+    }
+    
+    
+    public function getRegionalIntensityFromPt24hPostcode (string $from, string $postcode): CarbonIntensityRegionalResponse {
+        //https://carbon-intensity.github.io/api-definitions/#get-regional-intensity-from-pt24h-postcode-postcode
+        $endpointString = sprintf('regional/intensity/%s/pt24h/postcode/%s', $from, $postcode);
+        $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = true, $getDataFromFirstKey = false);
+        return $obj;
+    }
+    
+    
+    public function getRegionalIntensityFromPt24hRegionID (string $from, int $regionID): CarbonIntensityRegionalResponse {
+        //https://carbon-intensity.github.io/api-definitions/#get-regional-intensity-from-pt24h-regionid-regionid
+        $endpointString = sprintf('regional/intensity/%s/pt24h/regionid/%s', $from, $regionID);
+        //validation: [1-17] https://carbon-intensity.github.io/api-definitions/#region-list
+        $obj = $this->callApiEndpointRegional($endpointString, $hasDataArray = true, $getDataFromFirstKey = false);
+        return $obj;
+    }
+    
+    
 
 }
