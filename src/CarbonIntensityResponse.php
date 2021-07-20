@@ -124,6 +124,11 @@ class CarbonIntensityResponse
         }
     }
     
+    public function exists(string $key): bool
+    {
+        return isset($this->$key);
+    }
+    
     public function set(string $key, $value)
     {
         $this->$key = $value;

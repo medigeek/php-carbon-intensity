@@ -137,7 +137,7 @@ class CarbonIntensityRegionObject extends CarbonIntensityDataObject
             $this->regionid = $parentObject->get("regionid");
             $this->dnoregion = $parentObject->get("dnoregion");
             $this->shortname = $parentObject->get("shortname");
-            if ($parentObject->get("postcode")) {
+            if ($parentObject->exists('postcode')) {
                 $this->postcode = $parentObject->get("postcode");
             }
         }
