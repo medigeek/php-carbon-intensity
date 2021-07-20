@@ -55,7 +55,8 @@ class CarbonIntensityRegionalResponse extends CarbonIntensityResponse
     
     public function __construct(
         Response $carbonIntensityResponse,
-        bool $hasDataArray = true
+        bool $hasDataArray = true,
+        bool $getDataFromFirstKey = true
     ) {
         //var_dump($carbonIntensityResponse);
         $this->dataRaw = $carbonIntensityResponse->getBody()->getContents();
@@ -92,22 +93,48 @@ class CarbonIntensityRegionalResponse extends CarbonIntensityResponse
         
         if ($hasDataArray == true) {
             //if it has data array (/regional/england)
-            $this->regionid = $this->dataArray[0]["regionid"];
-            $this->dnoregion = $this->dataArray[0]["dnoregion"];
-            $this->shortname = $this->dataArray[0]["shortname"];
-            if (array_key_exists('postcode', $this->dataArray[0])) {
-                $this->postcode = $this->dataArray[0]["postcode"];
+            if ($getDataFromFirstKey) {
+                $this->regionid = $this->dataArray[0]["regionid"];
+                $this->dnoregion = $this->dataArray[0]["dnoregion"];
+                $this->shortname = $this->dataArray[0]["shortname"];
+
+                if (array_key_exists('postcode', $this->dataArray[0])) {
+                    $this->postcode = $this->dataArray[0]["postcode"];
+                }
+
+                $this->subDataArray = $this->dataArray[0]["data"];
+                $this->from = $this->subDataArray[0]["from"];
+                $this->to = $this->subDataArray[0]["to"];
+
+                foreach ($this->subDataArray as $value) {
+                    //call $functionName as method
+                    $CIRegionObject = new CarbonIntensityRegionObject($value, $this, $hasDataArray, $getDataFromFirstKey);
+                    array_push($this->data, $CIRegionObject);
+                }
+            }
+            else {
+                //$getDataFromFirstKey
+                //regional/intensity/2021-07-20T11:30Z/fw24h/postcode/RG10
+                //doesn't have data in first key of $this->dataArray[0]
+                $this->regionid = $this->dataArray["regionid"];
+                $this->dnoregion = $this->dataArray["dnoregion"];
+                $this->shortname = $this->dataArray["shortname"];
+
+                if (array_key_exists('postcode', $this->dataArray)) {
+                    $this->postcode = $this->dataArray["postcode"];
+                }
+
+                $this->subDataArray = $this->dataArray["data"];
+                //$this->from = $this->subDataArray["from"];
+                //$this->to = $this->subDataArray["to"];
+
+                foreach ($this->subDataArray as $value) {
+                    //call $functionName as method
+                    $CIRegionObject = new CarbonIntensityRegionObject($value, $this, $hasDataArray, $getDataFromFirstKey);
+                    array_push($this->data, $CIRegionObject);
+                }
             }
             
-            $this->subDataArray = $this->dataArray[0]["data"];
-            $this->from = $this->subDataArray[0]["from"];
-            $this->to = $this->subDataArray[0]["to"];
-            
-            foreach ($this->subDataArray as $value) {
-                //call $functionName as method
-                $CIRegionObject = new CarbonIntensityRegionObject($value, $this, $hasDataArray);
-                array_push($this->data, $CIRegionObject);
-            }
         } else {
             //if it has regions array:
             unset($this->data);

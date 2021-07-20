@@ -119,7 +119,8 @@ class CarbonIntensityRegionObject extends CarbonIntensityDataObject
     public function __construct(
         array $regionArray, 
         CarbonIntensityRegionalResponse $parentObject,
-        bool $hasDataArray = false
+        bool $hasDataArray = false,
+        bool $getDataFromFirstKey = true
     ) {
         //var_dump($carbonIntensityResponse);
         unset($this->dataArray);
@@ -128,8 +129,18 @@ class CarbonIntensityRegionObject extends CarbonIntensityDataObject
         
         //$this->regionsArray = $parentObject["regions"];
         unset($this->regionsArray);
-        $this->from = $parentObject->get("from");
-        $this->to = $parentObject->get("to");
+        
+        if ($getDataFromFirstKey) {
+            //$getDataFromFirstKey
+            //regional/intensity/2021-07-20T11:30Z/fw24h/postcode/RG10
+            //doesn't have data in first key of $this->dataArray[0]
+            //doesn't have "from" in the parent array
+            $this->from = $parentObject->get("from");
+            $this->to = $parentObject->get("to");
+        } else {
+            $this->from = $regionArray["from"];
+            $this->to = $regionArray["to"];
+        }
         
         
         if ($hasDataArray == true) {
