@@ -3,7 +3,7 @@
     "description": "PHP library for carbonintensity.org.uk - https://carbon-intensity.github.io/api-definitions/",
     "type": "library",
     "require": {
-        "guzzlehttp/guzzle": "^7.0",
+        "guzzlehttp/guzzle": "^7.4",
         "php": ">=7.4.0"
     },
     "autoload": {
